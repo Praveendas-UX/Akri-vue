@@ -1,5 +1,4 @@
 <template>
-  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
   <div class="topBar d-flex justify-content-between align-items-center">
     <img src="../assets/logo.png" alt="AkriLogo" class="logo" />
     <div class="d-flex align-items-center" style="color: #f3f3f3">

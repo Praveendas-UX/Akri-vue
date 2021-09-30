@@ -1,7 +1,9 @@
 <template>
-  <div class="nav">
-    <div class="orgDiv" @click="activeTab">Users</div>
-    <div class="orgDiv" @click="activeTab">Operators</div>
+  <div class="container">
+    <div class="nav">
+      <div class="orgDiv" @click="activeTab">Users</div>
+      <div class="orgDiv" @click="activeTab">Operators</div>
+    </div>
     <component :is="selectedTab"></component>
   </div>
 </template>
@@ -18,7 +20,9 @@ export default {
   components: { Users, Operators },
   methods: {
     activeTab(tab) {
-      console.log(tab.target.outerText);
+      tab.target.classList.toggle('highlightOrgDiv');
+      console.log(tab);
+      tab.target.nextSibling.classList.remove('highlightOrgDiv');
       this.selectedTab = tab.target.outerText;
     },
   },
