@@ -20,10 +20,10 @@ export default {
   components: { Users, Operators },
   methods: {
     activeTab(tab) {
-      tab.target.classList.toggle('highlightOrgDiv');
+      this.selectedTab = tab.target.outerText;
+      tab.target.classList.add('highlightOrgDiv');
       console.log(tab);
       tab.target.nextSibling.classList.remove('highlightOrgDiv');
-      this.selectedTab = tab.target.outerText;
     },
   },
 };
