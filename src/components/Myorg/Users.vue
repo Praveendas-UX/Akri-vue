@@ -1,13 +1,29 @@
 <template>
   <div class="container ">
-    <div
-      class="row"
-      style="padding: 13px 18px 13px 0px ;
+    <div class=" d-flex align-items-center justify-content-between">
+      <div
+        style="padding: 13px 18px 13px 0px ;
     font-size: 22px;
     font-weight: 500;"
-    >
-      Users
+      >
+        Users
+      </div>
+      <div class=" d-flex align-items-center">
+        <button class="btn btn-outline-primary d-flex align-items-center">
+          <span class="material-icons">
+            add
+          </span>
+          <div>Upload Users</div>
+        </button>
+        <button class="btn btn-outline-primary d-flex align-items-center">
+          <span class="material-icons">
+            add
+          </span>
+          <div>Add Users</div>
+        </button>
+      </div>
     </div>
+
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -55,6 +71,13 @@
   color: #20a8d8;
   padding: 5px;
   font-size: 15px;
+}
+button {
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  width: auto;
+  margin: 5px;
 }
 thead {
   text-align: center;

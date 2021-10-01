@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="nav">
-      <div class="orgDiv" @click="activeTab">Users</div>
+      <div class="orgDiv highlightOrgDiv" @click="activeTab">Users</div>
       <div class="orgDiv" @click="activeTab">Operators</div>
     </div>
     <component :is="selectedTab"></component>
@@ -14,16 +14,15 @@ import Operators from '../components/Myorg/Operators.vue';
 export default {
   data() {
     return {
-      selectedTab: '',
+      selectedTab: 'Users',
     };
   },
   components: { Users, Operators },
   methods: {
     activeTab(tab) {
       this.selectedTab = tab.target.outerText;
-      tab.target.classList.add('highlightOrgDiv');
-      console.log(tab);
-      tab.target.nextSibling.classList.remove('highlightOrgDiv');
+      let highlightNav = document.querySelectorAll('.orgDiv');
+      highlightNav.forEach((nav) => nav.classList.toggle('highlightOrgDiv'));
     },
   },
 };
