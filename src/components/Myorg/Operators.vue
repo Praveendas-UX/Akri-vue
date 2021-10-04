@@ -1055,6 +1055,7 @@ b, strong{
 .table thead th {
     vertical-align: top;
 }
+
 /* tbody, td, th, thead, tr, tr:after {
     display: block;
 } */
