@@ -747,9 +747,17 @@ padding-bottom: 10px !important;
 } */
 
 .modal-body{
+<<<<<<< HEAD
   position: relative;
   flex: 1 1 auto;
   padding : 1 rem;
+=======
+
+  position: relative;
+  flex: 1 1 auto;
+  padding : 1 rem;
+
+>>>>>>> d30a345ea7eaea42917870969e15255f60e9d272
 }
 
 .row {
