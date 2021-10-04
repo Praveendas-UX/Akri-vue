@@ -1,0 +1,37 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "Name": "Ryan",
+      "Email": "operator_cuserschema@apitest587671.ai",
+      "PhoneNumber":"+91 9551705080"
+
+    },
+    {
+      "id": 2,
+      "Name": "Ronald",
+      "Email": "operator7@cpt15.ai7671.ai",
+      "PhoneNumber":"+91 8903103764"
+      
+
+    },
+    {
+    "id": 3,
+      "Name": "Toni",
+      "Email": "operator_cuserschema@apitest587671.ai",
+      "PhoneNumber":"+91 6536363838"
+    }
+      
+
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
