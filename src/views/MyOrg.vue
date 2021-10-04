@@ -34,6 +34,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   padding-top: 64px;
+  cursor: pointer;
 }
 .orgDiv {
   color: #73818f;

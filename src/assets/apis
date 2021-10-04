@@ -1,0 +1,46 @@
+To get IdToken
+post : https://cpapitest2.akrimanager.akridataeng.com/api/LoginUser
+username: 'admin1@cpt15.ai'
+password: 'Akridata@123'
+
+For user
+
+To get user list 
+Post https://cpapitest2.akrimanager.akridataeng.com/api/SearchUsers
+{
+	currentpage: 0,
+	filters: {},
+	maxperpage: 25,
+	user_group_type: "CUSTOMER USER"
+}
+
+
+To get User count:
+post https://cpapitest2.akrimanager.akridataeng.com/api/GetUserCount
+{
+	currentpage: 0,
+	filters: {},
+	maxperpage: 25,
+	user_group_type: "CUSTOMER USER"
+}
+
+For operator
+To get operator list 
+Post https://cpapitest2.akrimanager.akridataeng.com/api/SearchUsers
+{
+	currentpage: 0,
+	filters: {},
+	maxperpage: 25,
+	user_group_type: "CUSTOMER USER"
+}
+
+
+To get Opertor count:
+post https://cpapitest2.akrimanager.akridataeng.com/api/GetUserCount
+{
+	currentpage: 0,
+	filters: {},
+	maxperpage: 25,
+	user_group_type: "CUSTOMER USER"
+}
+
