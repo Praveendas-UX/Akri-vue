@@ -29,14 +29,22 @@
     <div class="container">
       <div class="col-4 searchbar d-flex align-items-center ">
         <div class="options">
-          <select>
-            <option value="User_name">Name</option>
-            <option value="saab">Email</option>
-            <option value="mercedes">Phone number</option>
+          <select id="ViewBy">
+            <option value="user_name">Name</option>
+            <option value="user_id">Email</option>
+            <option value="phone">Phone number</option>
           </select>
         </div>
-        <input type="text" placeholder="Search" />
-        <span class="material-icons searchIcon d-flex align-items-center">
+        <input
+          type="text"
+          placeholder="Search"
+          v-model="searchbyname"
+          v-on:keyup="searchquery"
+        />
+        <span
+          class="material-icons searchIcon d-flex align-items-center"
+          v-on:click="searchquery"
+        >
           search
         </span>
       </div>
@@ -85,11 +93,11 @@
                 <div class="container " style="padding-left:10px">
                   <div class="oneLineDetails">
                     <div style="padding-right:20px">
-                      <b style="color:#20a8d8">Email: </b> &nbsp;
+                      <b style="color:#038ad8">Email: </b> &nbsp;
                       {{ item.user_id }}
                     </div>
                     <div>
-                      <b style="color:#20a8d8">Phone no: </b> &nbsp;
+                      <b style="color:#038ad8">Phone no: </b> &nbsp;
                       {{ item.phone }}
                     </div>
                   </div>
@@ -100,21 +108,21 @@
                   >
                     <div class="col-6">
                       <div class="userDetailslisting">
-                        <b style="color:#20a8d8">
+                        <b style="color:#038ad8">
                           <i class="fa-solid fa-flag fa-lg icolor"></i>
                           &nbsp; Role </b
                         >&nbsp;
                         <div>User</div>
                       </div>
                       <div class="userDetailslisting">
-                        <b style="color:#20a8d8">
+                        <b style="color:#038ad8">
                           <i class="fa-solid fa-user fa-lg icolor"></i>
                           &nbsp; Customer </b
                         >&nbsp;
                         <div class="value">{{ user.client_name }}</div>
                       </div>
                       <div style="margin-top:10px">
-                        <b style="color:#20a8d8">
+                        <b style="color:#038ad8">
                           <i class="fa-solid fa-location-dot fa-lg icolor"></i>
                           &nbsp; Address
                         </b>
@@ -129,14 +137,14 @@
 
                     <div>
                       <div class="userDetailslisting">
-                        <b style="color:#20a8d8">
+                        <b style="color:#038ad8">
                           <i class="fa-solid fa-filter"></i>
                           &nbsp; Number of Filters </b
                         >&nbsp;
                         <div>0</div>
                       </div>
                       <div class="userDetailslisting">
-                        <b style="color:#20a8d8">
+                        <b style="color:#038ad8">
                           <i class="fa-solid fa-filter"></i>
                           &nbsp; Number of Filter Graphs </b
                         >&nbsp;
@@ -144,14 +152,14 @@
                       </div>
 
                       <div class="userDetailslisting">
-                        <b style="color:#20a8d8">
+                        <b style="color:#038ad8">
                           <i class="fa-brands fa-gg"></i>
                           &nbsp; Number of Workflows </b
                         >&nbsp;
                         <div>0</div>
                       </div>
                       <div class="userDetailslisting">
-                        <b style="color:#20a8d8">
+                        <b style="color:#038ad8">
                           <i class="fa-brands fa-gg-circle"></i>
                           &nbsp; Number of Workflow Groups </b
                         >&nbsp;
@@ -159,14 +167,14 @@
                       </div>
 
                       <div class="userDetailslisting">
-                        <b style="color:#20a8d8">
+                        <b style="color:#038ad8">
                           <i class="fa-solid fa-user fa-lg icolor"></i>
                           &nbsp; Added By </b
                         >&nbsp;
                         <div>{{ user.created_by }}</div>
                       </div>
                       <div class="userDetailslisting">
-                        <b style="color:#20a8d8">
+                        <b style="color:#038ad8">
                           <i class="fa-solid fa-calendar-alt"></i>
                           &nbsp; Added On </b
                         >&nbsp;
@@ -198,6 +206,9 @@ export default {
       time: '',
       searchFilter: 'Search by name',
       userDetailsDropdown: '',
+      searchbyname: '',
+      filterName: '',
+      copyUserList: '',
     };
   },
   mounted() {
@@ -228,6 +239,7 @@ export default {
           .then((response1) => {
             console.log(response1.data.output);
             this.userList = response1.data.output;
+            this.copyUserList = response1.data.output;
           })
           .catch((error) => {
             console.log(error);
@@ -263,9 +275,24 @@ export default {
         this.userDetailsDropdown = '';
       }
     },
+
+    searchquery() {
+      let e = document.getElementById('ViewBy');
+      this.filterName = e.value;
+      if (this.searchbyname) {
+        this.userList = this.copyUserList.filter((item) => {
+          return item[this.filterName]
+            .toLowerCase()
+            .includes(this.searchbyname.toLowerCase());
+        });
+      } else this.userList = this.copyUserList;
+
+      console.log(this.userList);
+    },
   },
 };
 </script>
+
 <style>
 button {
   font-weight: 400;
@@ -273,17 +300,17 @@ button {
   vertical-align: middle;
   width: auto;
   margin: 5px;
-  border-color: #20a8d8 !important;
-  color: #20a8d8 !important;
+  border-color: #038ad8 !important;
+  color: #038ad8 !important;
 }
 .btn-outline-primary:hover {
   color: #fff !important;
-  background-color: #20a8d8;
-  border-color: #20a8d8;
+  background-color: #038ad8;
+  border-color: #038ad8;
 }
 thead {
   text-align: center;
-  background-color: #20a8d8;
+  background-color: #038ad8;
   color: white;
 }
 tbody {
@@ -304,8 +331,8 @@ input {
 }
 
 select {
-  background-color: #bdc3c7;
-  border: 0.5px solid #bdc3c7;
+  background-color: #e0e0e0;
+  border: 0.5px solid #e0e0e0;
   border-radius: 20.5px;
   padding: 5px;
   z-index: 1;
@@ -317,9 +344,9 @@ option {
 }
 
 .searchIcon {
-  color: #20a8d8;
+  color: #038ad8;
   background-color: white;
-  border: 0.5px solid #20a8d8;
+  border: 0.5px solid #038ad8;
   width: 30px;
   height: 30px;
   border-radius: 15px;
@@ -332,7 +359,7 @@ option {
 }
 
 .searchIcon:hover {
-  background-color: #20a8d8;
+  background-color: #038ad8;
   color: white;
 }
 
@@ -348,9 +375,9 @@ option {
   border-radius: 15px;
 }
 .bannerIcons:hover {
-  color: #20a8d8;
+  color: #038ad8;
   background-color: white;
-  border-color: #20a8d8;
+  border-color: #038ad8;
 }
 .contentContainer {
   background: #ffffff;
@@ -369,8 +396,8 @@ option {
 }
 
 .contentBanner {
-  background-color: #20a8d8;
-  border-radius: 25px;
+  background-color: #038ad8;
+  border-radius: 5px;
   padding: 2px 10px 2px 10px !important;
 }
 
