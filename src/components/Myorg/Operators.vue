@@ -18,18 +18,19 @@
   </div>
 
   <!--                New boxes                    -->
+
   <div class="col-4 searchbar d-flex align-items-center mb-4">
-        <div class="options">
-          <select>
-            <option value="User_name">Name</option>
-            <option value="saab">Email</option>
-            <option value="mercedes">Phone number</option>
+        <div class="options"  >
+          <select id="ViewBy" >
+            <option value="user_name">Name</option>
+            <option value="user_id">Email</option>
+            <option value="phone">Phone number</option>
           </select>
         </div>
-        <input type="text" placeholder="Search" />
+        <input type="text" placeholder="Search"  v-model="searchbyname" v-on:keyup.enter ="searchquery"/>
         <span
           class="material-icons icons btn btn-outline-primary d-flex align-items-center"
-        >
+        v-on:click="searchquery">
           search
         </span>
       </div>
@@ -38,10 +39,10 @@
   <div class="row">
     <div class="col-4 mb-3" v-for="(item,i) in operatorList" v-bind:key="item.id">
 <div class="container" @click="displayOperatorDetails(i)">
-  
+  <div data-bs-toggle="collapse" data-bs-target="#collapseExample">
   <div class="d-flex">
     <span> <i class="fa-solid fa-user p-r-7 icolor"></i> </span>
-    <span class ="username">{{ item.user_name}}</span>
+    <span class ="username">{{ item.user_name}}</span>                 
   </div>
   <div>
     <span> <i class="fa-solid fa-hashtag p-r-7 icolor"></i> </span>
@@ -55,6 +56,20 @@
     <span><i class="fa-solid fa-envelope icolor p-r-7"></i></span>
     <span class = "content-subheaders" > {{item.user_id}}</span>
   </div>
+  <div class = "float-right"> <span > 
+  <qrcode-vue bind: value="item_.qr_code" > </qrcode-vue> </span> </div>
+  </div>
+  <div class="collapse" id="collapseExample">
+  <div> 
+    <span> <i class="fa-solid fa-flag fa-lg icolor p-r-7"></i>
+                    </span>
+                   <span class="content-subheaders"> Operator </span>
+                   </div>
+    <div><span>  <i class="fa-solid fa-user fa-lg icolor p-r-7 "></i>
+                   </span> 
+                   <span class="content-subheaders"> {{item.client_name}} </span>   
+                     </div>           
+</div>
   <!-- <div> 
     <span> <i class="fa-solid fa-flag fa-lg icolor"></i>
                    &nbsp; Role </span>
@@ -282,7 +297,7 @@ export default {
       time : undefined,
       coperatorList : undefined,
       searchbyname: '',
-      filterName:"user_name"
+      filterName:""
     };
   },
 
@@ -333,8 +348,10 @@ axios.post('https://cpapitest2.akrimanager.akridataeng.com/api/SearchUsers',
         this.item_ = item
         
       },
-      searchquery(){
-        console.log("vgjjhjvjhjh");
+  searchquery(){
+        let e = document.getElementById("ViewBy");
+        this.filterName = e.value;
+        // console.warn(item[strUser])
         
 if(this.searchbyname){
   
@@ -786,7 +803,7 @@ b, strong{
 }
 
 searchbar {
-  border: 0.5px solid #bdc3c7;
+  border: 1px solid red;
   box-sizing: border-box;
   border-radius: 20.5px;
   padding: 5px;
