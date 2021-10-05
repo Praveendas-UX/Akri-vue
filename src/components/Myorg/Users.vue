@@ -250,19 +250,62 @@
               v-bind:key="item.id"
             >
               <div class=" contentContainer " @click="displayUserDetails(i)">
-                <div class="d-flex">
-                  <b style="color:#20a8d8"># </b> &nbsp; {{ i + 1 }}
+                <div
+                  class="d-flex align-items-center contentBanner p-1 mb-1 justify-content-between"
+                  style="color:white"
+                >
+                  <div class="d-flex">
+                    <b>#</b>{{ i + 1 }} &nbsp;
+                    <b>
+                      {{ item.user_name }}
+                    </b>
+                  </div>
+                  <div style="color:white" class="d-flex align-items-center ">
+                    <span
+                      class="material-icons icons btn btn-outline-primary d-flex align-items-center"
+                    >
+                      add
+                    </span>
+                    <span
+                      class="material-icons icons btn btn-outline-primary d-flex align-items-center"
+                    >
+                      remove
+                    </span>
+                    <span
+                      class="material-icons icons btn btn-outline-primary d-flex align-items-centers"
+                    >
+                      border_color
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <b style="color:#20a8d8">Name: </b> &nbsp;
-                  {{ item.user_name }}
-                </div>
-                <div>
-                  <b style="color:#20a8d8">Email: </b> &nbsp; {{ item.user_id }}
-                </div>
-                <div>
-                  <b style="color:#20a8d8">Phone no: </b> &nbsp;
-                  {{ item.phone }}
+                <div class="container" style="padding-left:10px">
+                  <div id="oneLineDetails">
+                    <div style="padding-right:20px">
+                      <b style="color:#20a8d8">Email: </b> &nbsp;
+                      {{ item.user_id }}
+                    </div>
+                    <div>
+                      <b style="color:#20a8d8">Phone no: </b> &nbsp;
+                      {{ item.phone }}
+                    </div>
+                  </div>
+                  <div v-show="userDetailsDropdown">
+                    <hr />
+                    <div class="d-flex">
+                      <b style="color:#20a8d8">
+                        <i class="fa-solid fa-flag fa-lg icolor"></i>
+                        &nbsp; Role </b
+                      >&nbsp;
+                      <div>User</div>
+                    </div>
+                    <div class="d-flex">
+                      <b style="color:#20a8d8">
+                        <i class="fa-solid fa-user fa-lg icolor"></i>
+                        &nbsp; Customer </b
+                      >&nbsp;
+                      <div class="value">{{ user.client_name }}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -284,6 +327,7 @@ export default {
       idToken: '',
       time: '',
       searchFilter: 'Search by name',
+      userDetailsDropdown: false,
     };
   },
   mounted() {
@@ -331,18 +375,23 @@ export default {
 
     displayUserDetails(i) {
       let containerSelector = document.querySelectorAll('.contentContainer');
-      console.log(containerSelector[i].parentElement.classList.toggle('col-8'));
+      let oneLineDetails = document.getElementById('oneLineDetails');
+      oneLineDetails.classList.toggle('d-flex');
+      containerSelector[i].parentElement.classList.toggle('col-8');
+      this.userDetailsDropdown = false;
+      if (containerSelector[i].parentElement.classList.contains('col-8'))
+        this.userDetailsDropdown = true;
     },
   },
 };
 </script>
 <style>
 .icons {
-  color: #20a8d8;
+  color: white;
   padding: 5px;
   margin: 5px;
   font-size: 15px;
-  border-color: #20a8d8;
+  border-color: white;
   width: 30px;
   height: 30px;
   border-radius: 15px;
@@ -370,9 +419,9 @@ input {
 
 /* modal */
 .btn-outline-primary:hover {
-  color: #fff;
-  background-color: #20a8d8;
-  border-color: #20a8d8;
+  color: #20a8d8;
+  background-color: white;
+  border-color: white;
 }
 .w-5 {
   width: 5%;
@@ -597,11 +646,17 @@ option {
 
   height: auto;
   margin-top: 20px;
-  padding: 5px;
+  padding: 10px;
   cursor: pointer;
 }
 
 .container {
   padding: 0;
+}
+
+.contentBanner {
+  background-color: #20a8d8;
+  border-radius: 25px;
+  padding: 2px 10px 2px 10px !important;
 }
 </style>
