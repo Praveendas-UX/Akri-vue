@@ -39,7 +39,7 @@
       <div class="row">
         <div class="col-4 mb-3" v-for="(item,i) in operatorList" v-bind:key="item.id">
           <div class="container" @click="displayOperatorDetails(i)">
-            <div data-bs-toggle="collapse" data-bs-target="#collapseExample">
+            <div data-bs-toggle="collapse" :data-bs-target="'#collapseExample'+i">
               <div class="row">
                 <div class="col-6">
                   <div class="d-flex">
@@ -56,7 +56,7 @@
                   </div>
                   <div>
                     <span><i class="fa-solid fa-envelope icolor p-r-7"></i></span>
-                    <span class="content-subheaders"> {{item.user_id}}</span>
+                    <span class="content-subheaders" style="word-break:break-all"> {{item.user_id}}</span>
                   </div>
                 </div>
                 <div class="col-6">
@@ -69,7 +69,7 @@
              
             </div>
 
-            <div class="collapse" id="collapseExample">
+            <div class="collapse" :id="'collapseExample'+i">
               <div>
                 <span> <i class="fa-solid fa-flag fa-lg icolor p-r-7"></i>
                 </span>

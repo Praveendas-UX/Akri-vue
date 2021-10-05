@@ -297,7 +297,7 @@ input {
 
 /*searchbar*/
 .searchbar {
-  border: 0.5px solid #bdc3c7;
+  border: 0.5px solid #bdc3c7 !important;
   box-sizing: border-box;
   border-radius: 20.5px;
   padding: 5px;
