@@ -7,6 +7,7 @@
     font-weight: 500;"
       >
         Users
+        <h style="color:grey"> - {{ userList.length }}</h>
       </div>
       <div class=" d-flex align-items-center">
         <button class="btn btn-outline-primary d-flex align-items-center">
@@ -24,6 +25,7 @@
       </div>
     </div>
 
+    <!-- 
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -81,8 +83,8 @@
       </tbody>
     </table>
   </div>
-
-  <!-- user details modal -->
+ -->
+    <!-- user details modal 
   <div
     class="modal fade"
     id="exampleModal"
@@ -90,7 +92,7 @@
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog  m-0 float-right modal-lg popupsize">
+    <div class="modal-dialog  m-0 float-right modal-lg ">
       <div class="modal-content" style="height : 100% ;">
         <div class="modal-header modal-view-head">
           <div class="col-md-12">
@@ -161,6 +163,152 @@
                 <div class="value">{{ user.zip }}</div>
               </div>
             </div>
+
+            <div class=" row m-t-20">
+              <div class="col-md-6">
+                <label>
+                  <i class="fa-solid fa-filter"></i>
+                  &nbsp; Number of Filters
+                </label>
+                <div class="value">0</div>
+              </div>
+
+              <div class="col-md-6 smt10">
+                <label>
+                  <i class="fa-solid fa-filter"></i>
+                  &nbsp; Number of Filter Graphs
+                </label>
+                <div class="value">0</div>
+              </div>
+            </div>
+
+            <div class=" row m-t-20">
+              <div class="col-md-6">
+                <label>
+                  <i class="fa-brands fa-gg" style="color:grey"></i>
+                  &nbsp; Number of Workflows
+                </label>
+                <div class="value">0</div>
+              </div>
+
+              <div class="col-md-6 smt10">
+                <label>
+                  <i class="fa-brands fa-gg-circle " style="color:grey"></i>
+                  &nbsp; Number of Workflow Groups
+                </label>
+                <div class="value">0</div>
+              </div>
+            </div>
+
+            <div class=" row m-t-20">
+              <div class="col-md-6">
+                <label>
+                  <i class="fa-solid fa-user fa-lg icolor"></i>
+                  &nbsp; Added By
+                </label>
+                <div class="value">{{ user.created_by }}</div>
+              </div>
+
+              <div class="col-md-6 smt10">
+                <label>
+                  <i class="fa-solid fa-calendar-alt"></i>
+                  &nbsp; Added On
+                </label>
+                <div class="value">{{ time_convert(user.updated_at) }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  -->
+
+    <div class="container">
+      <div class="col-4 searchbar d-flex align-items-center ">
+        <div class="options">
+          <select>
+            <option value="User_name">Name</option>
+            <option value="saab">Email</option>
+            <option value="mercedes">Phone number</option>
+          </select>
+        </div>
+        <input type="text" placeholder="Search" />
+        <span
+          class="material-icons icons btn btn-outline-primary d-flex align-items-center"
+        >
+          search
+        </span>
+      </div>
+
+      <!-- content -->
+      <div class="container">
+        <div class="col-12">
+          <div class=" row ">
+            <div
+              class="col-4"
+              v-for="(item, i) in userList"
+              v-bind:key="item.id"
+            >
+              <div class=" contentContainer " @click="displayUserDetails(i)">
+                <div
+                  class="d-flex align-items-center contentBanner p-1 mb-1 justify-content-between"
+                  style="color:white"
+                >
+                  <div class="d-flex">
+                    <b>#</b>{{ i + 1 }} &nbsp;
+                    <b>
+                      {{ item.user_name }}
+                    </b>
+                  </div>
+                  <div style="color:white" class="d-flex align-items-center ">
+                    <span
+                      class="material-icons icons btn btn-outline-primary d-flex align-items-center"
+                    >
+                      add
+                    </span>
+                    <span
+                      class="material-icons icons btn btn-outline-primary d-flex align-items-center"
+                    >
+                      remove
+                    </span>
+                    <span
+                      class="material-icons icons btn btn-outline-primary d-flex align-items-centers"
+                    >
+                      border_color
+                    </span>
+                  </div>
+                </div>
+                <div class="container" style="padding-left:10px">
+                  <div id="oneLineDetails">
+                    <div style="padding-right:20px">
+                      <b style="color:#20a8d8">Email: </b> &nbsp;
+                      {{ item.user_id }}
+                    </div>
+                    <div>
+                      <b style="color:#20a8d8">Phone no: </b> &nbsp;
+                      {{ item.phone }}
+                    </div>
+                  </div>
+                  <div v-show="userDetailsDropdown">
+                    <hr />
+                    <div class="d-flex">
+                      <b style="color:#20a8d8">
+                        <i class="fa-solid fa-flag fa-lg icolor"></i>
+                        &nbsp; Role </b
+                      >&nbsp;
+                      <div>User</div>
+                    </div>
+                    <div class="d-flex">
+                      <b style="color:#20a8d8">
+                        <i class="fa-solid fa-user fa-lg icolor"></i>
+                        &nbsp; Customer </b
+                      >&nbsp;
+                      <div class="value">{{ user.client_name }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -178,10 +326,11 @@ export default {
       user: '',
       idToken: '',
       time: '',
+      searchFilter: 'Search by name',
+      userDetailsDropdown: false,
     };
   },
   mounted() {
-    console.log('iagbdcixjk');
     axios
       .post('https://cpapitest2.akrimanager.akridataeng.com/api/LoginUser', {
         username: 'admin1@cpt15.ai',
@@ -223,16 +372,26 @@ export default {
     userDetails(item) {
       this.user = item;
     },
+
+    displayUserDetails(i) {
+      let containerSelector = document.querySelectorAll('.contentContainer');
+      let oneLineDetails = document.getElementById('oneLineDetails');
+      oneLineDetails.classList.toggle('d-flex');
+      containerSelector[i].parentElement.classList.toggle('col-8');
+      this.userDetailsDropdown = false;
+      if (containerSelector[i].parentElement.classList.contains('col-8'))
+        this.userDetailsDropdown = true;
+    },
   },
 };
 </script>
 <style>
 .icons {
-  color: #20a8d8;
+  color: white;
   padding: 5px;
   margin: 5px;
   font-size: 15px;
-  border-color: #20a8d8;
+  border-color: white;
   width: 30px;
   height: 30px;
   border-radius: 15px;
@@ -260,9 +419,9 @@ input {
 
 /* modal */
 .btn-outline-primary:hover {
-  color: #fff;
-  background-color: #20a8d8;
-  border-color: #20a8d8;
+  color: #20a8d8;
+  background-color: white;
+  border-color: white;
 }
 .w-5 {
   width: 5%;
@@ -304,46 +463,6 @@ input {
 .modal-body .fa-solid {
   color: grey;
 }
-
-/* .operator_head {
-  color: #0174b1;
-  font-size: 0.975rem;
-  font-weight: 600;
-}
-.borderbottom{
-padding-bottom: 10px !important;
-  border-bottom: 1px solid;
-  border-bottom-color: rgb(222, 222, 222);
-}
-.operator_values {
-  padding: 10px 15px;
-  color: #3c3c3c;
-  font-size: 0.975rem;
-  font-weight: 600;
-}
-.m-10{
-    margin:0 10px;
-}
-.m-15-10{
-  margin: 15px 10px;
-
-}
-.p-l-15{
-  padding: 0 0 0 15px;
-}
-.m-t-10{
-  margin:10px 0 0 0;
-}
-.popupsize{
-  width:50%;
-  height:100%; 
-}
-.float-right{
-  float: right;
-}
-.modal-content{
-  border:none;  
-} */
 
 .modal-body {
   position: relative;
@@ -394,9 +513,9 @@ m-0 {
   float: right !important;
 }
 
-.popupsize {
+. {
   width: 50%;
-  /* height:100%;  */
+  height: 100%;
 }
 
 .view {
@@ -496,8 +615,48 @@ strong {
   text-shadow: 0 1px 0 #fff;
   opacity: 0.5;
 }
-.popupsize {
-  width: 50%;
-  height: 100%;
+
+/*searchbar*/
+.searchbar {
+  border: 0.5px solid #bdc3c7;
+  box-sizing: border-box;
+  border-radius: 20.5px;
+  padding: 5px;
+}
+
+select {
+  background-color: #bdc3c7;
+  border: 0.5px solid #bdc3c7;
+  border-radius: 20.5px;
+  padding: 5px;
+  z-index: 1;
+  margin-right: 5px;
+}
+
+option {
+  background-color: white;
+}
+
+/* content */
+.contentContainer {
+  background: #ffffff;
+  border: 1px solid #ecf0f1;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+
+  height: auto;
+  margin-top: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.container {
+  padding: 0;
+}
+
+.contentBanner {
+  background-color: #20a8d8;
+  border-radius: 25px;
+  padding: 2px 10px 2px 10px !important;
 }
 </style>

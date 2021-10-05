@@ -2,6 +2,7 @@
   <topBar />
   <!-- views -->
   <router-view name="myOrg" />
+  <br />
 </template>
 
 <script>

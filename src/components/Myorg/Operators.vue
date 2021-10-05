@@ -6,7 +6,7 @@
       <div class ="title-header p-l-0">
         Operators
         <span class ="count">
-          <b> {{item_.length}} </b>
+          <b></b>
         </span>
       </div>
     </div>
