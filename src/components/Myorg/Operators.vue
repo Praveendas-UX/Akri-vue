@@ -101,7 +101,7 @@
         </div>
       </div>
     </div>
-    <div class="tab-content bornome customertable">
+    <!-- <div class="tab-content bornome customertable">
       <div class="mobilepad10-left mobilepad10 customertable">
         <div class="table-responsive table-responsive-sm">
           <div class="mobtable p-l-0">
@@ -151,7 +151,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- modal  -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -314,7 +314,7 @@
               "currentpage": 0,
               "filters": {},
               "maxperpage": 25,
-              "user_group_type": "CUSTOMER OPERATOR"
+              user_group_types  : ['CUSTOMER USER', 'CUSTOMER ADMIN', 'CUSTOMER OPERATOR']  
             },
             {
               headers: {

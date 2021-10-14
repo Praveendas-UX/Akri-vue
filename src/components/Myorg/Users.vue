@@ -40,13 +40,14 @@
           placeholder="Search"
           v-model="searchbyname"
           v-on:keyup="searchquery"
+          style="padding:0 15px 0 5px"
         />
-        <span
+        <!-- <span
           class="material-icons searchIcon d-flex align-items-center"
           v-on:click="searchquery"
         >
           search
-        </span>
+        </span> -->
       </div>
 
       <!-- content -->
@@ -228,8 +229,7 @@ export default {
               currentpage: 0,
               filters: {},
               maxperpage: 25,
-              user_group_type: 'CUSTOMER USER',
-            },
+              user_group_types  : ['CUSTOMER USER']            },
             {
               headers: {
                 Authorization: this.idToken,
@@ -238,8 +238,10 @@ export default {
           )
           .then((response1) => {
             console.log(response1.data.output);
-            this.userList = response1.data.output;
-            this.copyUserList = response1.data.output;
+            let dataArr=response1.data.output;
+            
+            this.userList = dataArr
+            this.copyUserList = dataArr
           })
           .catch((error) => {
             console.log(error);
@@ -261,7 +263,10 @@ export default {
       let oneLineDetails = document.querySelectorAll('.oneLineDetails');
 
       containerSelector.forEach((e, index) => {
-        if (i !== index) e.parentElement.classList.remove('col-8');
+        if(i===index)
+        e.classList.toggle('highlightContainer') 
+        if (i !== index) {e.parentElement.classList.remove('col-8');
+        e.classList.remove('highlightContainer') }
       });
       oneLineDetails.forEach((e, index) => {
         if (i !== index) e.classList.remove('d-flex');
@@ -277,7 +282,19 @@ export default {
     },
 
     searchquery() {
-      let e = document.getElementById('ViewBy');
+      this.userDetailsDropdown="";
+      let containerSelector = document.querySelectorAll('.contentContainer');
+      let oneLineDetails = document.querySelectorAll('.oneLineDetails');
+
+      containerSelector.forEach((e) => {
+      e.parentElement.classList.remove('col-8');
+      e.classList.remove('highlightContainer')
+      });
+      oneLineDetails.forEach((e) => {
+      e.classList.remove('d-flex');
+      });
+
+            let e = document.getElementById('ViewBy');
       this.filterName = e.value;
       if (this.searchbyname) {
         this.userList = this.copyUserList.filter((item) => {
@@ -379,6 +396,7 @@ option {
   background-color: white;
   border-color: #038ad8;
 }
+
 .contentContainer {
   background: #ffffff;
   border: 1px solid #ecf0f1;
@@ -394,6 +412,10 @@ option {
 .container {
   padding: 0;
 }
+
+.highlightContainer{
+  border: 1.8px solid #ffc107;
+  }
 
 .contentBanner {
   background-color: #038ad8;
